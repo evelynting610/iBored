@@ -1,0 +1,22 @@
+<head>
+  <title>Post an Event</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Post an Event</h1>
+        {{> addEventForm}}
+    </header>
+  </div>
+</body>
+
+<template name="addEventForm">
+    <form class="new-event"> <!--user submits title, location, start, and end of event-->
+        <p>Event Title: </p><input type="text" name="eventTitle" placeholder="Enter a brief title" />
+        <p>Location: </p><input type="text" name="eventLocation" placeholder="Type to add new tasks" />
+        <p>Start Time: </p><input type="text" name="eventStart" placeholder="Type to add new tasks" />
+        <p>End Time: </p><input type="text" name="eventEnd" placeholder="Type to add new tasks" />
+        <input type="submit" value="Submit">
+    </form>
+</template>
