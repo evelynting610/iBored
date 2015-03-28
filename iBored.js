@@ -1,5 +1,3 @@
-Events = new Mongo.Collection("events");
-
 if (Meteor.isClient) {
   // This code only runs on the client
 
@@ -19,7 +17,8 @@ if (Meteor.isClient) {
         startTime: eventStart,
         endTime: eventEnd,
         nominalLocation: eventLocation, // location user says event is at
-        actualLocation: Geolocation.latLng(), // returns Lat Long of device
+        locationLat: Geolocation.latLng().lat;
+        locationLng: Geolocation.latLng().lng;
         // user: Meteor.user(),
         hearts: 0,
         heartingUsers: [] //list of users who heart the event
