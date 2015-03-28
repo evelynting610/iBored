@@ -3,20 +3,53 @@
 </head>
 
 <body>
-  <div class="container">
+<script type = "text/javascript" src="event-lists.js"></script>
+  <div id="submit-event-page">
     <header>
       <h1>Post an Event</h1>
         {{> addEventForm}}
     </header>
   </div>
+
+  <div id="main-page">
+    <header>
+      {{> mainPageBody}}
+    </header>
+  </div>
+  <div id="event-details">
+    <header>
+      {{> eventDetailsBody}}
+    </header>
+  </div>
 </body>
 
 <template name="addEventForm">
-    <form class="new-event"> <!--user submits title, location, start, and end of event-->
-        <p>Event Title: </p><input type="text" name="eventTitle" placeholder="Enter a brief title" />
-        <p>Location: </p><input type="text" name="eventLocation" placeholder="Type to add new tasks" />
-        <p>Start Time: </p><input type="text" name="eventStart" placeholder="Type to add new tasks" />
-        <p>End Time: </p><input type="text" name="eventEnd" placeholder="Type to add new tasks" />
-        <input type="submit" value="Submit">
+    <form> <!--user submits title, location, start, and end of event-->
+        <p>Event Title: </p><input type="text" name="eventTitle" placeholder="Enter a brief title" /> <!--must be less than 140 char-->
+        <p>Location: </p><input type="text" name="eventLocation"/>
+        <p>Start Time: </p><input type="text" name="eventStart"/> <!--must be HH:MM PM format-->
+        <p>End Time: </p><input type="text" name="eventEnd"/> <!--must be HH:MM PM format-->
+        <br><input type="submit" value="Submit">
     </form>
+    <button type="button" id="returnToMainPage">Go Back</button>
+</template>
+
+<template name="mainPageBody">
+  <ul>
+    {{#each events}}
+      {{> getEvent}}
+    {{/each}}
+  </ul>
+  <button type="button" id="postEvent">Post an Event</button>
+</template>
+
+<template name="getEvent">
+    <li>{{title}}</li>
+    <li>{{hearts}}</li>
+    <li>{{lat}}</li>
+    <li>{{lng}}</li>
+    <br>
+</template>
+<template name="eventDetailsBody">
+ <p>You got an event detail</p>
 </template>
