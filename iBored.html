@@ -1,0 +1,87 @@
+<head>
+  <title>Post an Event</title>
+</head>
+
+<body>
+<script type = "text/javascript" src="event-lists.js"></script>
+  <div id="submit-event-page">
+    <header>
+      <script src="js/jquery.js"></script> 
+      <script src="js/moment.min.js"></script> 
+      <script src="js/combodate.js"></script> 
+      <h1>Post an Event</h1>
+        {{> addEventForm}}
+    </header>
+</div>
+
+  <div id="main-page">
+    <header>
+      {{> mainPageBody}}
+    </header>
+  </div>
+  <div id="event-details">
+    <header>
+      {{> eventDetailsBody}}
+    </header>
+  </div>
+</body>
+
+<template name="addEventForm">
+    <form> <!--user submits title, location, start, and end of event-->
+        <p>Event Title: </p><input type="text" name="eventTitle" placeholder="Enter a brief title" />
+
+		<span id="titleError" style="display:none"></span>
+
+        <p>Location: </p><input type="text" name="eventLocation"/>
+        
+        <p>Start Time: </p><input type="text" id="startTime" data-format="HH:mm" data-template="HH : mm" name="eventStart">
+<script>
+$(function(){
+    $('#startTime').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+</script>
+        
+        <p>End Time: </p><input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="eventEnd">
+<script>
+$(function(){
+    $('#time').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+</script>
+        <br><br><input type="submit" value="Submit">
+    </form>
+  <button type="button" id="returnToMainPage">Go Back</button>
+</template>
+
+<template name="mainPageBody">
+  {{#each events}}
+    {{> getEvent}}
+  {{/each}}
+  <button type="button" id="postEvent">Post an Event</button>
+</template>
+
+<template name="getEvent">
+  <div id = "listedEvent">
+    <ul>
+      <li>{{title}}</li>
+      <li>{{hearts}}</li>
+      <li>{{lat}}</li>
+      <li>{{lng}}</li>
+    </ul>
+    <br>
+  </div>
+</template>
+
+<template name="eventDetailsBody">
+  <p>Got here</p>
+  <p>{{title}}</p>
+  <p>{{startTime}} to {{endTime}}</p>
+  <p>Location: {{nominalLocation}}</p>
+  <p>{{hearts}} people are going</p>
+  
+</template>
