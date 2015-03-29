@@ -76,11 +76,11 @@ if (Meteor.isClient) {
         var lng = Geolocation.latLng().lng;
         
         // 5 for debugging for now
-        if (eventTitle.length > 5) {
+        if (eventTitle.length > 140) {
             error = true;
             $("#titleError").show();
             $("#titleError").empty();
-            $("#titleError").append("<span class='error'> Must be less than 5 char </span>");
+            $("#titleError").append("<span class='error'> Must be less than 140 char </span>");
         } else if (eventTitle.length < 1) {
             error = true;
             $("#titleError").show();
