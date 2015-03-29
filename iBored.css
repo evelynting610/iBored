@@ -1,18 +1,20 @@
 /* CSS declarations go here */
+li {list-style-type: none;}
+/* CSS declarations go here */
 .error {
-	color:red;	
-	display:block;
+       color:red;	
+       display:block;
 }
 
 #background {
-	background-image: url("trianglify-background.svg");
-	background-size: cover;
-	background-repeat: no-repeat;
+	    background-image: url("trianglify-background.svg");
+	    background-size: cover;
+	    background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 .col-centered {
-	width: 40%;
+	      width: 40%;
 }
 
 .col-centered, template { 
@@ -22,20 +24,20 @@
 }
 
 .panel-warning {
-	background-color: rgb(255, 103, 103);
+	       background-color: rgb(255, 103, 103);
 }
 
 .container {
-	justify-content: center;
-	align-content: center;
+	   justify-content: center;
+	   align-content: center;
 }
 
 #listed-event {
-	width: 40%;
+	      width: 40%;
 }
 
 #map-canvas {
-	height: 100%;
+	    height: 100%;
     margin: 0px;
     padding: 0px
 }
