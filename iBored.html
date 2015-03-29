@@ -1,115 +1,105 @@
 <head>
-  	<title>Post an Event</title>
-  	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp">
-  	    </script>
-  	<script type="text/javascript">
-		function initialize() {
-			var mapOptions = {
-			  center: { lat: -34.397, lng: 150.644},
-			  zoom: 8
-			};
-
-			var map = new google.maps.Map(document.getElementById('map-canvas'),
-			    mapOptions);
-		}
-
-		google.maps.event.addDomListener(window, 'load', initialize());
-  	</script>
+  <title>Post an Event</title>
+  <script type = "text/javascript"></script>
 </head>
 
 <body class="container-fluid" id="background">
-<!-- <script type = "text/javascript" src="event-lists.js"></script> -->
-  	<div class="row">
-  		<div class="col-lg-12 col-centered">
-		  	<div id="submit-event-page">
-			    <header>
-			      <script src="js/jquery.js"></script> 
-			      <script src="js/moment.min.js"></script> 
-			      <script src="js/combodate.js"></script> 
-			      <h1>Post an Event</h1>
-			        {{> addEventForm}}
-			    </header>
-			</div>
+  <div class="row">
+    <div class="col-lg-12 col-centered">
+    
+    <div id="login-page">
+      {{> loginButtons}}
+    </div>
 
-		  	<div id="main-page">
-			    <header>
-			      {{> mainPageBody}}
-			    </header>
-		  	</div>
+    {{#if currentUser}}
 
-		  	<div id="event-details">
-			    <header>
-			      {{> eventDetailsBody}}
-			    </header>
-		  	</div>
-  		</div>
-  	</div>	
-</body>
+    <div id="submit-event-page">
+      <header>
+        <script src="js/jquery.js"></script> 
+        <script src="js/moment.min.js"></script> 
+        <script src="js/combodate.js"></script> 
+        <h1>Post an Event</h1>
+          {{> addEventForm}}
+      </header>
+  </div>
+
+    <div id="main-page">
+      <header>
+        {{> mainPageBody}}
+      </header>
+    </div>
+    <div id="event-details">
+      <header>
+        {{> eventDetailsBody}}
+      </header>
+    </div>
+    {{/if}}
+  </div>
+  </div>
+  </body>
+
 
 <template name="addEventForm">
     <form> <!--user submits title, location, start, and end of event-->
-        <p>Event Title: </p><input type="text" name="eventTitle" placeholder="Enter a brief title" />
+      <div class="form-group">
+          <p>Event Title: </p><input class="form-control" type="text" name="eventTitle" placeholder="Enter a brief title" />
+        </div>
 
-		<span id="titleError" style="display:none"></span>
+        <div class="form-group">
+        <p>Location: </p><input class="form-control" type="text" name="eventLocation"/>
+        </div>
 
-        <p>Location: </p><input type="text" name="eventLocation"/>
-        
-        <p>Start Time: </p><input type="text" id="startTime" data-format="HH:mm" data-template="HH : mm" name="eventStart">
-
-
-		<script>
-		$(function(){
-		    $('#startTime').combodate({
-		        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-		        minuteStep: 1
-		    });  
-		});
-		</script>
-		        
-		        <p>End Time: </p><input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="eventEnd">
-		<script>
-		$(function(){
-		    $('#time').combodate({
-		        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-		        minuteStep: 1
-		    });  
-		});
-		</script>
-
-
-        <br><br><input type="submit" value="Submit">
+        <div class="form-group">
+        <p>Start Time: </p><input class="form-control" type="text" id="startTime" data-format="HH:mm" data-template="HH : mm" name="eventStart">
+      </div>
+<script>
+$(function(){
+    $('#startTime').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+</script>
+        <div class="form-group">
+        <p>End Time: </p><input class="form-control" type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="eventEnd">
+      </div>
+<script>
+$(function(){
+    $('#time').combodate({
+        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+        minuteStep: 1
+    });  
+});
+</script>
+        <input type="submit" value="Submit" class="btn btn-success btn-large">
     </form>
-  	<button type="button" id="returnToMainPage">Go Back</button>
+  <button type="button" id="returnToMainPage" class="btn btn-warning btn-large">Go Back</button>
 </template>
 
-<template name="mainPageBody" class="container">
+<template name="mainPageBody">
   {{#each events}}
     {{> getEvent}}
   {{/each}}
-  <button type="button" id="postEvent">Post an Event</button>
+  <button type="button" id="postEvent" class="btn btn-primary">Post an Event</button>
 </template>
 
 <template name="getEvent">
-  <div id = "listedEvent" class="panel panel-default text-center">
-  	<div class="panel panel-warning">{{title}}</div>
-    <ul class="list-group">
-      <li class="list-group-item">
-      <span class="glyphicon glyphicon-heart" id="heart"></span>	
-      	{{hearts}}
-      </li>
-      <li class="list-group-item">{{lat}}</li>
-      <li class="list-group-item">{{lng}}</li>
+  <div class="eventDetailsSummary panel panel-default text-center">
+    <ul data-id="{{_id}}" class="list-group">
+      <li class="list-group-item">{{title}}</li>
+      <li class="list-group-item">Hearts: {{hearts}}</li>
     </ul>
-    <div id="map-canvas"></div>
-    <br>
+  </div>
+  <div class="eventDetailsBody">
+  <br>
+    {{> eventDetailsBody}}
+    <p>{{counter}} people are going</p>
   </div>
 </template>
 
 <template name="eventDetailsBody">
-  <p>Got here</p>
   <p>{{title}}</p>
   <p>{{startTime}} to {{endTime}}</p>
   <p>Location: {{nominalLocation}}</p>
-  <p>{{hearts}} people are going</p>
-  
+  <button type = "button" id="heartclick">HEART this event</button>
 </template>
