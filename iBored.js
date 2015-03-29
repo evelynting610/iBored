@@ -6,30 +6,6 @@ var clickedEvent;
 console.log("js is working");
 Events = new Mongo.Collection("events");
 var error = false;
-
-Meteor.methods({
-    removeExpiredEvents: function() {
-        var currentTime = new Date();
-        var serverTime=currentTime.getHours()+currentTime.getMinutes();
-        var exactTime = currentTime.getTime();
-
-        Events.remove(
-            {createdAt: {$lt: exactTime-57600000}}  //deletes everything created > 16 hours ago
-        )
-        if(serverTime<1200){
-            Events.remove( 
-              { endTime: { $lt: serverTime}}
-            )
-        }
-        else if (serverTime>200){       //in the event that you have a party that ends at 2 AM
-            console.log("hit serverTime");
-            Events.remove( 
-              { endTime: { $lt: serverTime, $gt: 200} }
-            )
-        }
-    }
-})
-
 if (Meteor.isClient) {
 	Session.setDefault("counter", 0);
 	Template.mainPageBody.rendered = function () {
@@ -130,24 +106,25 @@ if (Meteor.isClient) {
      });
      Template.mainPageBody.helpers({
      	events: function(){
-     		// call meteor method
-            Meteor.call("removeExpiredEvents");
-
+     		console.log("inside fn");
     		//CHECKS if location is close enough
-    		if (Geolocation.latLng()){
+    		/*if (Geolocation.latLng()){
     			console.log("latlng");
   				var userLat= Geolocation.latLng().lat;    //USER lat refers to listener
   				var userLng= Geolocation.latLng().lng;
 				var upperLat = userLat+0.0224982;
 				var lowerLat = userLat-0.0224982;
+
 				var additive = 2.5/(Math.cos(userLat)*111.321);
 				var upperLng = userLng+additive;
 				var lowerLng = userLng-additive;
 				console.log(upperLat, lowerLat, upperLng,lowerLng);}
+
 			else{
 				console.log("evelyn");
 			}
-			return Events.find( { $and: [ { lat: { $lt: upperLat, $gt: lowerLat} }, { lat: { $gt: lowerLat, $lt: upperLat} } ] }).fetch();
+			return Events.find( { $and: [ { lat: { $lt: upperLat, $gt: lowerLat} }, { lat: { $gt: lowerLat, $lt: upperLat} } ] }).fetch();*/
+			return Events.find().fetch();
 		}
 	});
      Template.addEventForm.events({
@@ -159,8 +136,7 @@ if (Meteor.isClient) {
 		var eventTitle = event.target.eventTitle.value;
 		var eventLocation = event.target.eventLocation.value;
 		var eventStart = event.target.eventStart.value;
-		var eventEnd = event.target.eventEnd.value.split(':');
-		var endTime = parseInt(eventEnd[0])*100+parseInt(eventEnd[1]);
+		var eventEnd = event.target.eventEnd.value;
 		var lat = Geolocation.latLng().lat;
 		var lng = Geolocation.latLng().lng;
 		if (eventTitle.length > 140) {
@@ -181,9 +157,9 @@ if (Meteor.isClient) {
         if (!error) {
             Events.insert({
                 title: eventTitle,
-                createdAt: new Date().getTime(), // current time
+                createdAt: new Date(), // current time
                 startTime: eventStart,
-                endTime: endTime,
+                endTime: eventEnd,
                 nominalLocation: eventLocation, // location user says event is at
                 lat: lat,
                 lng: lng,
