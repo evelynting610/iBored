@@ -1,12 +1,4 @@
 /* CSS declarations go here */
-input.invalid, textarea.invalid{
-    border: 2px solid red;
-}
- 
-input.valid, textarea.valid{
-    border: 2px solid green;
-}
-
 .error {
 	color:red;	
 	display:inline-block;
