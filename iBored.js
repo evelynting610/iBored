@@ -24,12 +24,17 @@ if (Meteor.isClient) {
 	        	document.getElementById("main-page").style.display = 'block';
 	        	document.getElementById("event-details").style.display = 'none';
 	        }
-	    /*var getEventInfo = document.getElementById("listedEvent");  //get more event into
-	    getEventInfo.onclick = function() { 
-	        document.getElementById("submit-event-page").style.display = 'none';  
-	        document.getElementById("main-page").style.display = 'none';
-	        document.getElementById("event-details").style.display = 'block';
-	        }*/
+	    Template.getEvent.rendered = function () {
+	    	console.log("1st point");
+		    var getEventInfo = document.getElementById("listedEvent");
+		    console.log("2nd point");  //get more event into
+		    getEventInfo.onclick = function() { 
+		    	console.log("clicked for detail");
+		        document.getElementById("submit-event-page").style.display = 'none';  
+		        document.getElementById("main-page").style.display = 'none';
+		        document.getElementById("event-details").style.display = 'block';
+		        }
+		    }
 	 }
      // This code only runs on the client
     
@@ -41,12 +46,12 @@ if (Meteor.isClient) {
     			console.log("latlng");
   				var userLat= Geolocation.latLng().lat;    //USER lat refers to listener
   				var userLng= Geolocation.latLng().lng;
-				upperLat = userLat+0.0224982;
-				lowerLat = userLat-0.0224982;
+				var upperLat = userLat+0.0224982;
+				var lowerLat = userLat-0.0224982;
 
 				var additive = 2.5/(Math.cos(userLat)*111.321);
-				upperLng = userLng+additive;
-				lowerLng = userLng-additive;
+				var upperLng = userLng+additive;
+				var lowerLng = userLng-additive;
 				console.log(upperLat, lowerLat, upperLng,lowerLng);}
 
 			else{
