@@ -1,31 +1,49 @@
 <head>
-  <title>Post an Event</title>
+  	<title>Post an Event</title>
+  	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp">
+  	    </script>
+  	<script type="text/javascript">
+		function initialize() {
+			var mapOptions = {
+			  center: { lat: -34.397, lng: 150.644},
+			  zoom: 8
+			};
+
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+			    mapOptions);
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize());
+  	</script>
 </head>
 
-<body class="container" id="background">
+<body class="container-fluid" id="background">
 <!-- <script type = "text/javascript" src="event-lists.js"></script> -->
-  	<div id="submit-event-page">
-	    <header>
-	      <script src="js/jquery.js"></script> 
-	      <script src="js/moment.min.js"></script> 
-	      <script src="js/combodate.js"></script> 
-	      <h1>Post an Event</h1>
-	        {{> addEventForm}}
-	    </header>
-	</div>
+  	<div class="row">
+  		<div class="col-lg-12 col-centered">
+		  	<div id="submit-event-page">
+			    <header>
+			      <script src="js/jquery.js"></script> 
+			      <script src="js/moment.min.js"></script> 
+			      <script src="js/combodate.js"></script> 
+			      <h1>Post an Event</h1>
+			        {{> addEventForm}}
+			    </header>
+			</div>
 
-  	<div id="main-page">
-	    <header>
-	      {{> mainPageBody}}
-	    </header>
-  	</div>
+		  	<div id="main-page">
+			    <header>
+			      {{> mainPageBody}}
+			    </header>
+		  	</div>
 
-  	<div id="event-details">
-	    <header>
-	      {{> eventDetailsBody}}
-	    </header>
-  	</div>
-
+		  	<div id="event-details">
+			    <header>
+			      {{> eventDetailsBody}}
+			    </header>
+		  	</div>
+  		</div>
+  	</div>	
 </body>
 
 <template name="addEventForm">
@@ -37,30 +55,34 @@
         <p>Location: </p><input type="text" name="eventLocation"/>
         
         <p>Start Time: </p><input type="text" id="startTime" data-format="HH:mm" data-template="HH : mm" name="eventStart">
-<script>
-$(function(){
-    $('#startTime').combodate({
-        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-        minuteStep: 1
-    });  
-});
-</script>
-        
-        <p>End Time: </p><input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="eventEnd">
-<script>
-$(function(){
-    $('#time').combodate({
-        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
-        minuteStep: 1
-    });  
-});
-</script>
+
+
+		<script>
+		$(function(){
+		    $('#startTime').combodate({
+		        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+		        minuteStep: 1
+		    });  
+		});
+		</script>
+		        
+		        <p>End Time: </p><input type="text" id="time" data-format="HH:mm" data-template="HH : mm" name="eventEnd">
+		<script>
+		$(function(){
+		    $('#time').combodate({
+		        firstItem: 'name', //show 'hour' and 'minute' string at first item of dropdown
+		        minuteStep: 1
+		    });  
+		});
+		</script>
+
+
         <br><br><input type="submit" value="Submit">
     </form>
-  <button type="button" id="returnToMainPage">Go Back</button>
+  	<button type="button" id="returnToMainPage">Go Back</button>
 </template>
 
-<template name="mainPageBody">
+<template name="mainPageBody" class="container">
   {{#each events}}
     {{> getEvent}}
   {{/each}}
@@ -68,13 +90,17 @@ $(function(){
 </template>
 
 <template name="getEvent">
-  <div id = "listedEvent">
-    <ul>
-      <li>{{title}}</li>
-      <li>{{hearts}}</li>
-      <li>{{lat}}</li>
-      <li>{{lng}}</li>
+  <div id = "listedEvent" class="panel panel-default text-center">
+  	<div class="panel panel-warning">{{title}}</div>
+    <ul class="list-group">
+      <li class="list-group-item">
+      <span class="glyphicon glyphicon-heart" id="heart"></span>	
+      	{{hearts}}
+      </li>
+      <li class="list-group-item">{{lat}}</li>
+      <li class="list-group-item">{{lng}}</li>
     </ul>
+    <div id="map-canvas"></div>
     <br>
   </div>
 </template>

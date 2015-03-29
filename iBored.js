@@ -20,13 +20,14 @@ if (Meteor.isClient) {
             document.getElementById("main-page").style.display = 'none';
             document.getElementById("event-details").style.display = 'none';
         }
-        
+
         var goBackButton = document.getElementById("returnToMainPage");  //go back to main page
         goBackButton.onclick = function() { 
                 document.getElementById("submit-event-page").style.display = 'none';  
                 document.getElementById("main-page").style.display = 'block';
                 document.getElementById("event-details").style.display = 'none';
-            }
+        }
+
         Template.getEvent.rendered = function () {
             console.log("1st point");
             var getEventInfo = document.getElementById("listedEvent");
@@ -36,8 +37,8 @@ if (Meteor.isClient) {
                 document.getElementById("submit-event-page").style.display = 'none';  
                 document.getElementById("main-page").style.display = 'none';
                 document.getElementById("event-details").style.display = 'block';
-                }
             }
+        }
      }
      // This code only runs on the client
     
@@ -63,6 +64,7 @@ if (Meteor.isClient) {
             return Events.find( { $and: [ { lat: { $lt: upperLat, $gt: lowerLat} }, { lat: { $gt: lowerLat, $lt: upperLat} } ] }).fetch();
         }
     });
+
     Template.addEventForm.events({
         "submit form": function (evt) {
         // This function is called when the new event form is submitted
@@ -81,12 +83,12 @@ if (Meteor.isClient) {
             error = true;
             $("#titleError").show();
             $("#titleError").empty();
-            $("#titleError").append("<span class='error'> Must be less than 140 char </span>");
+            $("#titleError").append("<p class='error'> Must be less than 140 char </p>");
         } else if (eventTitle.length < 1) {
             error = true;
             $("#titleError").show();
             $("#titleError").empty();
-            $("#titleError").append("<span class='error'> Must not be empty </span>");
+            $("#titleError").append("<p class='error'> Must not be empty </p>");
         } else {
             error = false;
             $("#titleError").hide();

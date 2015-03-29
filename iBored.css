@@ -1,7 +1,7 @@
 /* CSS declarations go here */
 .error {
 	color:red;	
-	display:inline-block;
+	display:block;
 }
 
 #background {
@@ -9,4 +9,33 @@
 	background-size: cover;
 	background-repeat: no-repeat;
     background-attachment: fixed;
+}
+
+.col-centered {
+	width: 40%;
+}
+
+.col-centered, template { 
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.panel-warning {
+	background-color: rgb(255, 103, 103);
+}
+
+.container {
+	justify-content: center;
+	align-content: center;
+}
+
+#listed-event {
+	width: 40%;
+}
+
+#map-canvas {
+	height: 100%;
+    margin: 0px;
+    padding: 0px
 }
