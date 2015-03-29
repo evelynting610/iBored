@@ -2,28 +2,30 @@
   <title>Post an Event</title>
 </head>
 
-<body>
-<script type = "text/javascript" src="event-lists.js"></script>
-  <div id="submit-event-page">
-    <header>
-      <script src="js/jquery.js"></script> 
-      <script src="js/moment.min.js"></script> 
-      <script src="js/combodate.js"></script> 
-      <h1>Post an Event</h1>
-        {{> addEventForm}}
-    </header>
-</div>
+<body class="container" id="background">
+<!-- <script type = "text/javascript" src="event-lists.js"></script> -->
+  	<div id="submit-event-page">
+	    <header>
+	      <script src="js/jquery.js"></script> 
+	      <script src="js/moment.min.js"></script> 
+	      <script src="js/combodate.js"></script> 
+	      <h1>Post an Event</h1>
+	        {{> addEventForm}}
+	    </header>
+	</div>
 
-  <div id="main-page">
-    <header>
-      {{> mainPageBody}}
-    </header>
-  </div>
-  <div id="event-details">
-    <header>
-      {{> eventDetailsBody}}
-    </header>
-  </div>
+  	<div id="main-page">
+	    <header>
+	      {{> mainPageBody}}
+	    </header>
+  	</div>
+
+  	<div id="event-details">
+	    <header>
+	      {{> eventDetailsBody}}
+	    </header>
+  	</div>
+
 </body>
 
 <template name="addEventForm">

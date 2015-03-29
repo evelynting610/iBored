@@ -3,3 +3,10 @@
 	color:red;	
 	display:inline-block;
 }
+
+#background {
+	background-image: url("trianglify-background.svg");
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+}

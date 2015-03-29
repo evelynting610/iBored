@@ -14,12 +14,13 @@ if (Meteor.isClient) {
         document.getElementById("main-page").style.display = 'block';
         document.getElementById("event-details").style.display = 'none';
         var postEventButton = document.getElementById("postEvent"); //post an event
-            // add onclick event 
-            postEventButton.onclick = function() { 
-                document.getElementById("submit-event-page").style.display = 'block';  
-                document.getElementById("main-page").style.display = 'none';
-                document.getElementById("event-details").style.display = 'none';
-            }
+        // add onclick event 
+        postEventButton.onclick = function() { 
+            document.getElementById("submit-event-page").style.display = 'block';  
+            document.getElementById("main-page").style.display = 'none';
+            document.getElementById("event-details").style.display = 'none';
+        }
+        
         var goBackButton = document.getElementById("returnToMainPage");  //go back to main page
         goBackButton.onclick = function() { 
                 document.getElementById("submit-event-page").style.display = 'none';  
